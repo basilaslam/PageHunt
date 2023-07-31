@@ -5,12 +5,14 @@ import { BooksRoutingModule } from './books-routing.module';
 import { ListBooksComponent } from './components/smart/list-books/list-books.component';
 import { DataService } from 'src/app/shared/services/data.service';
 import { BooksComponent } from './books.component';
+import { BookCardComponent } from './components/ui/book-card/book-card.component';
 
 
 @NgModule({
   declarations: [
     ListBooksComponent,
-    BooksComponent
+    BooksComponent,
+    BookCardComponent
   ],
   imports: [
     CommonModule,

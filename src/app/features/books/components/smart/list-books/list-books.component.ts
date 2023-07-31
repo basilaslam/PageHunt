@@ -16,7 +16,7 @@ export class ListBooksComponent{
     duration: 3000,
   }
 
-  constructor(private data: DataService,){
+  constructor(private data: DataService){
 
   }
 
@@ -26,8 +26,6 @@ export class ListBooksComponent{
     console.log('data fetched', this.books)
   }
 
-  addToCart(book: Book){
-      // this.cartService.addToCart(book)
-  }
+
 
 }

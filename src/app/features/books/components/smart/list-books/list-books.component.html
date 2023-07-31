@@ -2,29 +2,7 @@
   <h1 class="text-3xl font-semibold mb-6">Book Listing</h1>
   <div *ngIf="books">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 justify-center">
-      <div *ngFor="let book of books"
-        class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto">
-        <!-- Card content goes here, same as before -->
-        <a href="#">
-          <img class="rounded-t-lg mx-auto" src="{{ book.image }}" alt="{{ book.title }}" />
-        </a>
-        <div class="px-5 pb-5">
-          <a href="#">
-            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{ book.title }}</h5>
-          </a>
-          <!-- Add the rating stars here if available -->
-          <div class="flex items-center mt-2.5 mb-5">
-
-          </div>
-          <div class="flex items-center justify-between w-full">
-            <span class="text-3xl font-bold text-gray-900 dark:text-white">{{ book.price | currency: "USD"
-              }}</span>
-            <a (click)="addToCart(book)"
-              class="text-white bg-blue-700 cursor-pointer hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
-              to cart</a>
-          </div>
-        </div>
-      </div>
+      <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
     </div>
   </div>
   <div *ngIf="!books" class="text-center mt-8">
