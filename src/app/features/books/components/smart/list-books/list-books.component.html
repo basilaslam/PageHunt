@@ -1,0 +1,11 @@
+<div class="container mx-auto ">
+  <h1 class="text-3xl font-semibold mb-6">Book Listing</h1>
+  <div *ngIf="books">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 justify-center">
+      <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+    </div>
+  </div>
+  <div *ngIf="!books" class="text-center mt-8">
+    <p>Loading books...</p>
+  </div>
+</div>

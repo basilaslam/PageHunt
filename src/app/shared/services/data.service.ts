@@ -28,7 +28,16 @@ export class DataService {
 }
 
 
-  getBooks(genre:string): Observable<Book[]>{
-    return this.http.get<BookResponse>(`${this.URI}/search/${genre}`).pipe(map((data) => {return data.books}),catchError(this.handleError))
-  }
+getBooks(genre: string): Observable<Book[]> {
+  return this.http.get<BookResponse>(`${this.URI}/search/${genre}`).pipe(
+    map((data) => {
+      // Remove the '$' sign from the price tag in each book
+      return data.books.map((book) => {
+        return { ...book, price: book.price.replace('$', '') };
+      });
+    }),
+    catchError(this.handleError)
+  );
+}
+
 }
