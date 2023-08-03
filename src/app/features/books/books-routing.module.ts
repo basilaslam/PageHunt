@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListBooksComponent } from './components/smart/list-books/list-books.component';
 import { BooksComponent } from './books.component';
+import { SigleBookComponent } from './components/smart/sigle-book/sigle-book.component';
 
 const routes: Routes = [
-  {path: '', component: BooksComponent}
+  {path: '', component: BooksComponent},
+  {path: 'book/:id', component: SigleBookComponent}
 ];
 
 @NgModule({

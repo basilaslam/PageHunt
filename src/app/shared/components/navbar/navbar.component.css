@@ -2,3 +2,6 @@ ul{
   display: flex;
   list-style: none;
 }
+.active {
+ @apply  text-blue-600
+}

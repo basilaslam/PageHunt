@@ -1,0 +1,27 @@
+<div *ngIf="cartItem" class="bg-white shadow-lg mb-4 rounded-lg overflow-hidden flex items-center p-4">
+  <img [src]="cartItem.image" alt="{{ cartItem.title }}" class="w-20 h-24 object-cover" />
+  <div class="flex-1 ml-4">
+    <h4 class="text-lg font-semibold mb-2">{{ cartItem.title }}</h4>
+    <p class="text-gray-600 mb-2">Price: {{ cartItem.price | currency }}</p>
+    <label for="quantity" class="mr-2">Quantity:</label>
+    <div class="flex">
+      <button (click)="updateQuantity(cartItem, cartItem.quantity-1)"
+        class="w-6 bg-gray-300 hover:bg-gray-400">-</button>
+      <input #quantity type="number" id="quantity" [(ngModel)]="cartItem.quantity"
+        (change)="updateQuantity(cartItem, cartItem.quantity)" min="1"
+        class="w-10 px-2 py-1 text-center border  border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50 appearance-none">
+      <button (click)="updateQuantity(cartItem, cartItem.quantity+1)"
+        class="w-6 bg-gray-300 hover:bg-gray-400">+</button>
+    </div>
+
+    <style>
+      input[type='number']::-webkit-inner-spin-button,
+      input[type='number']::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+    </style>
+  </div>
+  <button (click)="removeItem(cartItem)"
+    class="bg-red-600 text-white px-4 py-2 rounded-lg ml-4 transition duration-200 ease-in-out hover:bg-red-700">Remove</button>
+</div>

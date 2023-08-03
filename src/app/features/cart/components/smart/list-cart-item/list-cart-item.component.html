@@ -1,0 +1,11 @@
+<div class="max-w-xl mx-auto mt-8">
+  <app-cart-item *ngFor="let item of cartItems" [cartItem]="item" (childEvent)="emitUpdateCartEvent()"></app-cart-item>
+  <div class="flex justify-between">
+    <button (click)="removeAllItems()"
+      class="remove-all-button bg-gray-600 text-white px-6 py-3 rounded-lg transition duration-200 ease-in-out hover:bg-gray-700">Remove
+      All</button>
+
+
+    <h1 *ngIf="cartItems" class="font-bold my-auto text-lg">Total: {{cartTotal}}</h1>
+  </div>
+</div>

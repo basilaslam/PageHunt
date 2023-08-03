@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Book, BookResponse } from '../models/book.model';
+import { Book, BookResponse, SingleBook } from '../models/book.model';
 
 @Injectable({
   providedIn: 'any'
@@ -35,6 +35,18 @@ getBooks(genre: string): Observable<Book[]> {
       return data.books.map((book) => {
         return { ...book, price: book.price.replace('$', '') };
       });
+    }),
+    catchError(this.handleError)
+  );
+}
+
+
+getBook(id: string): Observable<SingleBook> {
+  console.log(`${this.URI}/books/${id}`)
+  return this.http.get<SingleBook>(`${this.URI}/books/${id}`).pipe(
+    map((data) => {
+      data.price = data.price.replace('$', '')
+      return data;
     }),
     catchError(this.handleError)
   );

@@ -1,0 +1,8 @@
+<div *ngIf="cartItems.length === 0; else cartContent" class="empty-cart text-center text-gray-600 py-6">
+  Your cart is empty.
+</div>
+
+<ng-template #cartContent>
+  <app-list-cart-item [cartItems]="cartItems" (childEvent)="handleUpdateEvent()"
+    [cartTotal]="cartTotal"></app-list-cart-item>
+</ng-template>
