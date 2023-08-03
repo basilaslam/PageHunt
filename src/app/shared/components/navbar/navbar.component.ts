@@ -33,12 +33,10 @@ export class NavbarComponent implements OnDestroy, OnInit{
       if(event instanceof NavigationEnd){
         let url = event.url.split('/')
         this.url = url.slice(0, 2).join('/')
-        console.log(this.url);
 
       }
     })))
     this.url = this.router.url
-    console.log(this.url);
 
     this.subs.add(this.cartSubscription = this.cartService.getCartDataObservable().subscribe(()=>{
       this.updateCartData()

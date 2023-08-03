@@ -42,7 +42,6 @@ getBooks(genre: string): Observable<Book[]> {
 
 
 getBook(id: string): Observable<SingleBook> {
-  console.log(`${this.URI}/books/${id}`)
   return this.http.get<SingleBook>(`${this.URI}/books/${id}`).pipe(
     map((data) => {
       data.price = data.price.replace('$', '')
