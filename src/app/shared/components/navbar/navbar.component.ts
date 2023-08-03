@@ -1,7 +1,9 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router, NavigationEnd } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 import { Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-navbar',
@@ -9,37 +11,46 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./navbar.component.css'],
 })
 
-export class NavbarComponent{
+export class NavbarComponent implements OnDestroy, OnInit{
   @Input()sidenav!: MatSidenav;
 
-  isCurrentHome: boolean
-  cartItems: number | undefined = 1
-
+  url: string = ''
+  cartItems: number | undefined
+  subs = new SubSink()
   private cartSubscription: Subscription | undefined;
 
 
-  constructor(private router: Router ,){
-     this.isCurrentHome = router.url === '/'
+  constructor(private router: Router , private cartService: CartService){
   }
+
+
   onToggleSidenav(){
     this.sidenav.toggle()
   }
 
   ngOnInit(){
-    // this.cartSubscription = this.cartService.getCartDataObservable().subscribe(()=>{
-    //   this.updateCartData()
-    // })
+    this.subs.add(this.router.events.subscribe((event => {
+      if(event instanceof NavigationEnd){
+        let url = event.url.split('/')
+        this.url = url.slice(0, 2).join('/')
+        console.log(this.url);
+
+      }
+    })))
+    this.url = this.router.url
+    console.log(this.url);
+
+    this.subs.add(this.cartSubscription = this.cartService.getCartDataObservable().subscribe(()=>{
+      this.updateCartData()
+    }))
   }
 
   updateCartData(){
-    // const cartData = this.cartService.getCart()
-    // this.cartItems = cartData.length
+    const cartData = this.cartService.getCart()
+    this.cartItems = cartData.length
   }
 
 
-  ngOnDestroy(): void {
-    this.cartSubscription?.unsubscribe();
-  }
 
   toggleCollapse(collapse: HTMLDivElement) {
 
@@ -53,4 +64,9 @@ export class NavbarComponent{
 
     collapse.classList.toggle('hidden');
   }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
 }

@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Book } from 'src/app/shared/models/book.model';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-card',
@@ -8,14 +10,14 @@ import { Book } from 'src/app/shared/models/book.model';
 })
 export class BookCardComponent {
   @Input() book!: Book
-
-constructor(){}
-
-
+constructor(private router: Router, private cartService: CartService){
+}
   addToCart(book: Book){
 
-    // this.cartService.addToCart(book)
+    this.cartService.addToCart(book)
 
   }
-
+  redirectToBookDetails(id: number) {
+    this.router.navigate(['/book', id]);
+  }
 }

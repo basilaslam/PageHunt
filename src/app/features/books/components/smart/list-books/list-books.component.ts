@@ -1,20 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/models/book.model';
 import { DataService } from 'src/app/shared/services/data.service';
-import { HotToastService } from '@ngneat/hot-toast';
-// import { CartService } from 'src/app/shared/services/cart.service';
-
+import { SubSink } from 'subsink';
 @Component({
   selector: 'app-list-books',
   templateUrl: './list-books.component.html',
   styleUrls: ['./list-books.component.css']
 })
-export class ListBooksComponent{
+export class ListBooksComponent implements OnInit, OnDestroy{
 
   books : Book[] | undefined
-  toastConfig = {
-    duration: 3000,
-  }
+
+  subs = new SubSink()
 
   constructor(private data: DataService){
 
@@ -22,10 +19,13 @@ export class ListBooksComponent{
 
 
   ngOnInit(){
-    this.data.getBooks('love').subscribe(data => {this.books = data})
-    console.log('data fetched', this.books)
+    this.subs.add(this.data.getBooks('love').subscribe(data => {this.books = data}))
+
   }
 
 
+  ngOnDestroy(){
+    this.subs.unsubscribe()
+  }
 
 }

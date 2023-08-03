@@ -6,18 +6,23 @@ import { ListBooksComponent } from './components/smart/list-books/list-books.com
 import { DataService } from 'src/app/shared/services/data.service';
 import { BooksComponent } from './books.component';
 import { BookCardComponent } from './components/ui/book-card/book-card.component';
+import { SigleBookComponent } from './components/smart/sigle-book/sigle-book.component';
+import { toInrPipe } from 'src/app/shared/pipes/toINR.pipe';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 
 @NgModule({
   declarations: [
     ListBooksComponent,
     BooksComponent,
-    BookCardComponent
+    BookCardComponent,
+    SigleBookComponent
   ],
   imports: [
     CommonModule,
     BooksRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    PipesModule
   ],
   providers: [DataService]
 })
