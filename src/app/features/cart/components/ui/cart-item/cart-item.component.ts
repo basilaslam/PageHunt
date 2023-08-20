@@ -8,13 +8,11 @@ import { CartService } from 'src/app/shared/services/cart.service';
   styleUrls: ['./cart-item.component.css']
 })
 export class CartItemComponent {
-  @Input() cartItem: CartItem | undefined
+  @Input() cartItem!: CartItem
   @Output() childEvent = new EventEmitter();
 
 
   constructor(private cartService: CartService){}
-
-
 
   updateQuantity(item: any, quantity: number): void {
     item.quantity = quantity;
